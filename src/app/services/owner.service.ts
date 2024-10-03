@@ -17,15 +17,30 @@ export class OwnerService {
     return this.http.get<Owner[]>(url);
   }
 
-  sendData(data: any){
+  createOwner(owner: Owner){
 
     const headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
-    .set('crossDomain', 'true')
+    // .set('crossDomain', 'true')
 
     const url = 'http://localhost:8080/technico/appPath/owner/create';
 
-    return this.http.post(url, JSON.stringify(data), {headers: headers})
+    return this.http.post(url, JSON.stringify(owner), {headers: headers})
+    .pipe(
+      retry(1),
+      catchError(error => throwError(() => 'Something is wrong...'))
+    );
+  }
+
+  updateOwner(id:number, owner: Owner){
+
+    const headers = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    // .set('crossDomain', 'true')
+
+    const url = `http://localhost:8080/technico/appPath/owner/update/${id}`;
+
+    return this.http.put<Owner>(url, JSON.stringify(owner), {headers: headers})
     .pipe(
       retry(1),
       catchError(error => throwError(() => 'Something is wrong...'))
@@ -41,5 +56,4 @@ export class OwnerService {
         catchError(error => throwError(() => 'Something went wrong while deleting...'))
       );
   }
-
 }

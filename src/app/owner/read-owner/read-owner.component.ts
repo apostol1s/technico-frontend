@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { OwnerService } from '../../services/owner.service';
 import { Owner } from '../../interfaces/owner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -11,11 +11,12 @@ import { RouterLink } from '@angular/router';
   imports: [
     CommonModule,
     RouterLink,
-    MatSnackBarModule],
+    MatSnackBarModule,
+  ],
   templateUrl: './read-owner.component.html',
   styleUrl: './read-owner.component.css'
 })
-export class ReadOwnerComponent {
+export class ReadOwnerComponent implements OnInit{
 
   ownerService = inject(OwnerService);
   snackBar = inject(MatSnackBar);
@@ -65,18 +66,18 @@ export class ReadOwnerComponent {
     this.ownerService.deleteOwner(owner.id).subscribe({
       next: () => {
         this.readOwners();
-        this.snackBar.open('Expense Deleted', 'Close', {
+        this.snackBar.open('Owner Deleted', 'Close', {
           duration: 3000,
           panelClass: ['custom-snackbar'],          
         });
-        console.log('Expense deleteded successfully', owner);        
+        console.log('Owner deleteded successfully', owner);        
       },
       error: (error) => {
         this.snackBar.open('There is an error', 'Close', {
           duration: 3000,
           panelClass: ['custom-snackbar']
         });
-        console.error('Error deleting expense', error);
+        console.error('Error deleting owner', error);
       }
     });
   }

@@ -1,0 +1,7 @@
+.table {
+    font-size: 0.9rem; 
+}
+
+.table th, .table td {
+    padding: 0.3rem; /* Μειώνεις το padding για συμπίεση */
+}

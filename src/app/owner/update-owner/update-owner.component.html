@@ -1,0 +1,80 @@
+<header class="bg-dark py-3">
+    <div class="container-lg">
+        <a role="button" class="text-white text-decoration-none fs-4" routerLink="/read-owner">Technico</a>
+    </div>
+</header>
+
+<div class="container d-flex justify-content-center align-items-center" style="padding-top: 107px; padding-bottom: 106px;">
+  <div class="card p-4">
+    <h2 class="text-center mb-4">Update Owner</h2>
+    <form [formGroup]="form">
+      <div class="form-group mb-3">
+        <label for="address">address:</label>
+        <input id="addreaa" formControlName="address" class="form-control" required/>
+        @if (form.get("address")?.touched && form.get("address")?.errors) {
+            @if (form.get("address")?.errors?.["required"]) {
+              <mat-error>Address is required</mat-error>
+            }
+        }
+      </div>     
+
+      <div class="form-group mb-3">
+        <label for="phoneNumber">phone number:</label>
+        <input id="phoneNumber" formControlName="phoneNumber" class="form-control" required/>
+        @if (form.get("phoneNumber")?.touched && form.get("phoneNumber")?.errors) {
+            @if (form.get("phoneNumber")?.errors?.["required"]) {
+              <mat-error>Phone number is required</mat-error>
+            } @else if (form.get('phoneNumber')?.errors?.['maxlength']) {
+              <mat-error>Phone number must be at most 14 characters.</mat-error>
+            } @else if (form.get("phoneNumber")?.errors?.["pattern"]) {
+              <mat-error>Phone number must contain only numeric characters.</mat-error>
+            }
+          }
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="email">email:</label>
+        <input id="email" formControlName="email" class="form-control" required/>
+        @if (form.get("email")?.touched && form.get("email")?.errors) {
+            @if (form.get("email")?.errors?.["duplicateEmail"]) {
+                <mat-error>Email is already registered</mat-error>
+              } @else if (form.get("email")?.errors?.["required"]) {
+                 <mat-error>Email is required</mat-error>
+              } @else if (form.get("email")?.errors?.["email"]) {
+                 <mat-error>Invalid email format</mat-error>
+              } @else if (form.get("email")?.errors?.["pattern"]) {
+                 <mat-error>Invalid email pattern</mat-error>
+              } 
+          }
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="password">password:</label>
+        <input id="password" formControlName="password" class="form-control" required/>
+        @if (form.get("password")?.touched && form.get("password")?.errors) {
+            @if (form.get("password")?.errors?.["required"]) {
+              <mat-error>Password is required</mat-error>
+            } @else if (form.get("password")?.errors?.["minlength"]) {
+              <mat-error>Password must be at least 8 characters long</mat-error>
+            }
+          }
+      </div>
+  
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary" (click)="updateOwner(form.value)">Update Owner</button>
+        <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="bg-dark py-1">
+    <div class="container-lg d-flex justify-content-between align-items-center">
+        <p class="text-white mb-0">Copyright &copy; Technico. All rights reserved, 2024</p>
+        <div class="social-icons">
+            <a class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+            <a class="text-white me-3"><i class="fab fa-twitter-square"></i></a>
+            <a class="text-white"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
