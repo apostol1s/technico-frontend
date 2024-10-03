@@ -14,5 +14,5 @@ export interface Repair{
     repairAddress: string,
     actualStartDate: Date,
     actualEndDate: Date,
-    deleted: boolean
+    isDeleted: boolean
 }
